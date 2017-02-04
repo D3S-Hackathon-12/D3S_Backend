@@ -39,6 +39,7 @@ body {
   width: 400px;
   margin-right: 50px;
   float: right;
+  text-align: center;
 }
 
 #student td {

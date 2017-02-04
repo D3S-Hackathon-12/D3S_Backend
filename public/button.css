@@ -25,36 +25,12 @@ body {
   margin-bottom: 20px;
 }
 
-#num_table tr:nth-child(2) td, #num_table tr:nth-child(3) td, #num_table tr:nth-child(4) td {
+#num_table tr:nth-child(2) td, #num_table tr:nth-child(3) td, #num_table tr:nth-child(4) td, #num_table tr:nth-child(5) td {
   width: 70px;
   font-size: 25px;
   background-color:#b6b8ba;
   border-radius: 5px;
   height: 70px;
-}
-
-#del {
-  font-size: 30px;
-  background-color: #b6b8ba;
-  height: 35px;
-  width: 60px;
-  border-radius: 5px;
-  border: 0;
-  margin: 5px;
-  float: right;
-  margin-right: 15px;
-}
-
-#submit_button {
-  font-size: 30px;
-  background-color: #b6b8ba;
-  height: 35px;
-  width: 60px;
-  border-radius: 5px;
-  border: 0;
-  margin: 5px;
-  float: right;
-  margin-right: 15px;
 }
 
 #admin_button {
@@ -69,7 +45,7 @@ body {
   margin-right: 15px;
 }
 
-#num_table tr:nth-child(2) td:hover, #num_table tr:nth-child(3) td:hover, #num_table tr:nth-child(4) td:hover, #admin_button:hover, #submit_button:hover, #del:hover {
+#num_table tr:nth-child(2) td:hover, #num_table tr:nth-child(3) td:hover, #num_table tr:nth-child(4) td:hover, #num_table tr:nth-child(5) td:hover, #admin_button:hover, #submit_button:hover {
   background-color: #989999;
   font-weight: bold;
 }
