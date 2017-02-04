@@ -187,11 +187,11 @@ app.post('/secure', function(req, res){
     }
     else if(result){
       console.log(result)
-      if(result.num == 0){
-        req.session.num = '1';
+      if(result.num*1 == 0){
+        req.session.num = 1;
       }
-      else if(result.num == 1){
-        req.session.num = '0';
+      else if(result.num*1 == 1){
+        req.session.num = 0;
       }
       User.update({
         username : result.username,

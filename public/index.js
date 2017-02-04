@@ -19,7 +19,6 @@ $(document).ready(function(){
         studentData += "<td>"+data[i]["username"]+"</td>"
         studentData += "<td>"+data[i]["num"]+"</td>"
         studentData +="</tr>"
-
       }
       console.log(data[0]["username"])
       $("#student").html(studentData);
