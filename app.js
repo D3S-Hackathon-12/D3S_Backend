@@ -82,15 +82,26 @@ app.get('/secure', function(req, res){
   })
 })
 
-app.get('/cctv', function(req, res){
+app.get('/cctvData', function(req, res){
+    User.find({
+    }, function(err, result){
+      if(err){
+        console.log('/cctv Error!')
+        throw err
+      }
+      else{
+        res.json(result)
+      }
+    })
+})
+
+app.get('/cctv', function(req,res){
   if(req.session.master==undefined){
     res.redirect('/login')
   }
   else {
-  fs.readFile('cctv.ejs', 'utf-8', function(err, data){
-    res.send(data)
-  })
-}
+    res.render("cctv.ejs")
+  }
 })
 
 app.get('/chase', function(req, res){
@@ -105,6 +116,7 @@ app.post('/register', function(req,res){
     id : req.param('id'),
     password : req.param('password'),
     schnum : req.param('schnum'),
+    class : req.param('class'),
     num : req.param('num')
   })
   User.findOne({
@@ -175,10 +187,10 @@ app.post('/secure', function(req, res){
     }
     else if(result){
       console.log(result)
-      if(result.num == '0'){
+      if(result.num == 0){
         req.session.num = '1';
       }
-      else if(result.num == '1'){
+      else if(result.num == 1){
         req.session.num = '0';
       }
       User.update({
