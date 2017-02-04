@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="http://code.jquery.com/jquery-1.12.1.js"></script>
+    <script type="text/javascript">
+        var ifani = false;
+        var rikey = false;
+        var lekey = false;
+        var chstate = 0; //0 = 기본(달리기) 1 = 점프 2 = 슬라이드
+        var rotcnt = 0;
+        var runcnt = 0;
+        var jumpcnt = 0;
+        var slidecnt = 0;
+        var isani = false;
+        var i = 0;
+        var timer = 30;
+        var si = 0;
+        var once = 0;
+        var heart = 3;
+        function startstudent() {
+          var stutop = top;
+          var stuleft = $(window).width();
+          $("#stu").css("left",stuleft);
+          $("#stu").css("top","280px");
+          $("#stu").show();
+          setInterval(function() {
+            if(si>3)
+            {
+                si = 0;
+              }
+                $(".stu").attr("src", "stuimg/run" + si + ".png");
+                if (si == 3) {
+                    $(".stu").attr("src", "stuimg/run1.png");
+                }
+                si++;
+          },200);
+          setInterval(function(){
+            var lse = $("#stu").position().left;
+            $("#stu").css("left",lse-2);
+          },20);
+        }
+        function fallingheart() {
+          $("#h_"+heart).hide();
+          $("#high").hide();
+          heart --;
+        }
+        function highcome() {
+            setInterval(function() {
+              $("#high").show();
+                var le = $(window).width();
+                $("#high").css("left", le);
+                setInterval(function() {
+                    var hp = $("#high").position();
+                    var cp = $("#car").position();
+                    var sp = $("#stu").position();
+                    var lef = $("#high").position().left;
+                    $("#high").css("left", (lef - 2) + "px");
+                    if (hp.left <= cp.left + 32 && hp.top <= cp.top + 34.5 && hp.left + 60 >= cp.left && hp.top+120 >= cp.top) {
+                      fallingheart();
+                    }
+                    if(hp.left <= cp.left + 32 && hp.top <= cp.top + 34.5 && sp.left + 32 >= cp.left && sp.top+34.5 >= cp.top) {
+                      alert("학생을 잡았습니다!!/");
+                      console.log("kk");
+                    }
+                }, 10);
+            }, 5000);
+        }
+
+            function jump() {
+                var jump = $("#car").css("top");
+                chstate = 1;
+                $("#car").stop().animate({
+                    top: 120
+                });
+                $("#car").animate({
+                    top: jump
+                });
+                $(".im").attr("src", "charimgs/jump_0.png");
+                setTimeout(function() {
+                    $(".im").attr("src", "charimgs/jump_1.png");
+                }, 300);
+                setTimeout(function() {
+                    chstate = 0;
+                }, 700);
+            }
+
+            function slide() {
+                var ct = $("#car").position().top;
+                var hei = $("#car").css("height");
+                chstate = 2;
+                $(".im").attr("src", "charimgs/slide_0.png");
+                setTimeout(function() {
+                    $(".im").attr("src", "charimgs/slide.png");
+                    $("#car").css("height", "25px");
+                    $("#car").css("top", ct + 17);
+                }, 200);
+                setTimeout(function() {
+                    $("#car").css("height", hei);
+                    $("#car").css("top", ct);
+                    chstate = 0;
+                }, 700);
+            }
+            setInterval(function() {
+                if (chstate == 0) {
+                    if (i > 3) {
+                        i = 0;
+                    }
+                    $(".im").attr("src", "charimgs/run" + i + ".png");
+                    if (i == 3) {
+                        $(".im").attr("src", "charimgs/run1.png");
+                    }
+                    i++;
+                }
+            }, 200);
+            setInterval(function() {
+                var le = $("#car").position().left;
+                if (rikey == true) {
+                    $("#car").css({
+                        left: le + 7
+                    });
+                }
+                if (lekey == true) {
+                    $("#car").css({
+                        left: le - 7
+                    });
+                }
+            }, 20);
+
+            $(window).resize(function() {
+                init();
+            });
+            $(document).keydown(function(e) {
+                if (e.keyCode == 37) {
+                    lekey = true;
+                }
+                if (e.keyCode == 39) {
+                    rikey = true;
+                }
+                if (e.keyCode == 38) {
+                    jump();
+                }
+                if (e.keyCode == 40) {
+                    slide();
+                }
+            })
+            $(document).keyup(function() {
+                lekey = false;
+                rikey = false;
+            })
+
+            function moveroad() {
+                setInterval(function() {
+                    if ($("#road_1").position().left <= $(window).width() * -1) {
+                        $("#road_1").css({
+                            left: $(window).width()
+                        });
+                        console.log("alert");
+                    }
+                    if ($("#road_2").position().left <= $(window).width() * -1) {
+                        $("#road_2").css({
+                            left: $(window).width()
+                        });
+                        console.log("alert");
+                    }
+
+                    for (var i = 1; i <= 2; i++) {
+                        var tp = $("#road_" + i).position().left;
+                        $("#road_" + i).css({
+                            left: tp - 10
+                        });
+                    }
+                }, 22);
+            }
+
+            function init() {
+                $("#road_1").css({
+                    left: 0
+                });
+                $("#road_2").css({
+                    left: $(window).width()
+                });
+                for (var i = 0; i <= 2; i++) {
+                    $("#h_" + (i + 1)).css({
+                        left: $(window).width() / 27 * i + 10
+                    })
+                }
+                var le = $(window).width();
+                var tp = $(window).height();
+                $("#car").css({
+                    left: le * 10 / 27
+                });
+                $("#car").css({
+                    top: tp * 1 / 2
+                })
+                $("#high").css({
+                    left: le
+                })
+            }
+
+            window.onload = function() {
+              $("#stu").hide();
+                init();
+                moveroad();
+                highcome();
+            }
+            setInterval(function(){
+              if(timer>0)
+              {
+                timer -= 1;
+              }
+              else
+              {
+                $("#pp").hide();
+                timer = "학생놈이 나타났다!";
+                if(once==0)
+                {
+                startstudent();
+                once++;
+              }
+              }
+              $("#second").children().remove();
+              $("#second").append("<span>"+timer+"</span>");
+            },1000);
+    </script>
+    <style>
+        html,
+        body {
+            background-color: #ffffff;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            position: absolute;
+            text-align: center;
+        }
+
+        * {
+            margin: 0;
+        }
+
+        #car,
+        #stu {
+            position: absolute;
+            width: 4%;
+            height: 6.2%;
+            z-index: 2;
+        }
+
+        .bg {
+            position: absolute;
+            height: 60%;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            width: 3%;
+            height: 4%;
+            z-index: 2;
+        }
+
+        #high {
+            background-color: #ff0000;
+            z-index: 2;
+            position: absolute;
+            height: 120px;
+            width: 60px;
+            top: 213px;
+        }
+
+        #timer {
+          background-color: #c6c6c6;
+          position: absolute;
+          height: 600px;
+          width: 1100px;
+          top: 350px;
+          text-align: center;
+          margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="car">
+        <img src="charimgs/run0.png" width="100%" height="100%" id="img" class="im">
+    </div>
+    <div id="road_1" class="bg">
+        <img src="images/bg.jpg" height="100%" width="110%">
+    </div>
+    <div id="road_2" class="bg">
+        <img src="images/bg.jpg" height="100%" width="110%">
+    </div>
+
+    <div class="heart" id="h_1">
+        <img src="images/heart.png" height="100%" width="100%">
+    </div>
+    <div class="heart" id="h_2">
+        <img src="images/heart.png" height="100%" width="100%">
+    </div>
+    <div class="heart" id="h_3">
+        <img src="images/heart.png" height="100%" width="100%">
+    </div>
+    <div id="high">
+    </div>
+    <div id="timer">
+      <span id="second"></span>
+      <span id="pp">초 뒤면 학생놈을 만날 수 있을 것 같다!</span>
+    </div>
+    <div id="stu">
+      <img src="stuimg/run0.png" width="100%" height="100%" class="stu">
+    </div>
+</body>
+</html>

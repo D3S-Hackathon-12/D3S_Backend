@@ -105,7 +105,8 @@ app.get('/cctv', function(req,res){
 })
 
 app.get('/chase', function(req, res){
-  fs.readfile('chase.html', 'utf-8', function(err, data){
+  fs.readFile('game.html','utf-8', function(err, data){
+    console.log(data)
     res.send(data)
   })
 })
