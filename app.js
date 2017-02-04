@@ -187,26 +187,25 @@ app.post('/secure', function(req, res){
     }
     else if(result){
       console.log(result)
+       var schnum = result.schnum;
+       console.log(result.schnum)
       if(result.num*1 == 0){
         req.session.num = 1;
       }
       else if(result.num*1 == 1){
         req.session.num = 0;
       }
+      console.log(req.session.num)
       User.update({
-        username : result.username,
-        class : result.class,
-        schnum : result.schnum,
-        num : req.session.num,
-        id : result.id,
-        password : result.password
-      }, function(err, result){
+        "schnum" : schnum
+      },{$set:{"num":req.session.num}}, function(err){
         if(err){
-          console.log('/secure update Error!')
+          console.log('/secure Error!')
           throw err
         }
         else {
-          console.log(result.username+" 처리완료")
+          console.log('success')
+          console.log()
           res.redirect('/secure')
         }
       })
