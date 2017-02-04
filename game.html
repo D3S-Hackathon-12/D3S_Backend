@@ -42,10 +42,16 @@
           },20);
         }
         function fallingheart() {
+          if(heart<=0)
+          {
+            alert("학생을 놓쳤습니다!")
+            location.href="/login"
+          }
           $("#h_"+heart).hide();
           $("#high").hide();
           heart --;
         }
+        var chk=0;
         function highcome() {
             setInterval(function() {
               $("#high").show();
@@ -60,9 +66,15 @@
                     if (hp.left <= cp.left + 32 && hp.top <= cp.top + 34.5 && hp.left + 60 >= cp.left && hp.top+120 >= cp.top) {
                       fallingheart();
                     }
-                    if(hp.left <= cp.left + 32 && hp.top <= cp.top + 34.5 && sp.left + 32 >= cp.left && sp.top+34.5 >= cp.top) {
-                      alert("학생을 잡았습니다!!/");
-                      console.log("kk");
+                    if(sp.left <= cp.left  + 32 && sp.top <= cp.top + 34.5 && sp.left + 32 >= cp.left && sp.top+34.5 >= cp.top)
+                    {
+                      console.log("d");
+                      if(chk==0)
+                      {
+                      alert("학생을 잡았습니다!");
+                      chk++;
+                    }
+                      location.href="/login"
                     }
                 }, 10);
             }, 5000);
