@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="button.css">
-    <title>Button</title>
+    <title>Student Check Page</title>
   </head>
   <body>
     <div id="card">
-      <form method="post">
+      <form method="get">
         <table id="num_table" cellspacing="10px">
           <tr>
-            <td colspan="3"><input type="text" id="number" name="schnum" value="" readonly></td>
+            <td colspan="3"><input type="text" id="number" name="number" value="" readonly></td>
           </tr>
           <tr>
             <td id="btn1">1</td>
@@ -28,12 +28,12 @@
             <td id="btn9">9</td>
           </tr>
           <tr>
-            <td colspan="3"><input type="submit" value="OK" id="submit_button"></td>
+            <td colspan="3"><div id="del">DEL</div><input type="submit" value="OK" id="submit_button"></td>
           </tr>
         </table>
       </form>
     </div>
-    <a href = '/login'><button type="button" id="admin_button">관리자</button></a>
+    <a href = "/login"><button type="button" id="admin_button">관리자</button></a>
     <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="button.js"></script>
   </body>

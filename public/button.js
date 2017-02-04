@@ -33,3 +33,9 @@ $('#btn8').on("click", function () {
 $('#btn9').on("click", function () {
   $('#number').attr('value', $('#number').attr('value') + '9');
 });
+
+$('#del').on('click', function () {
+  console.log($('#number').attr('value').length);
+
+  $('#number').attr('value', $('#number').attr('value').substring(0, $('#number').attr('value').length - 1));
+})
