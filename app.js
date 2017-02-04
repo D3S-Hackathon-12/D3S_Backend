@@ -166,4 +166,38 @@ app.post('/login', function(req, res){
 app.post('/secure', function(req, res){
   var body = req.body
   console.log(body)
+  User.findOne({
+    schnum : body.schnum
+  }, function(err, result){
+    if(err){
+      console.log('/secure Error!')
+      throw err
+    }
+    else if(result){
+      console.log(result)
+      if(result.num == '0'){
+        req.session.num = '1';
+      }
+      else if(result.num == '1'){
+        req.session.num = '0';
+      }
+      User.update({
+        username : result.username,
+        class : result.class,
+        schnum : result.schnum,
+        num : req.session.num,
+        id : result.id,
+        password : result.password
+      }, function(err, result){
+        if(err){
+          console.log('/secure update Error!')
+          throw err
+        }
+        else {
+          console.log(result.username+" 처리완료")
+          res.redirect('/secure')
+        }
+      })
+    }
+  })
 })

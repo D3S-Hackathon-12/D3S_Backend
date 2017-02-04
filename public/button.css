@@ -1,0 +1,63 @@
+body {
+  background: #6a7e8b;
+}
+
+#card {
+  border-radius: 10px;
+  background-color: #8f9ca5;
+  margin: auto;
+  margin-top: 150px;
+  width: 400px;
+  padding: 15px;
+}
+
+#num_table {
+  border-radius: 10px;
+  text-align: center;
+  width: 100%;
+  background-color: #dfe4e7;
+}
+
+#number {
+  width: 80%;
+  font-size: 40px;
+  margin: 20px;
+  margin-bottom: 20px;
+}
+
+#num_table tr:nth-child(2) td, #num_table tr:nth-child(3) td, #num_table tr:nth-child(4) td {
+  width: 70px;
+  font-size: 25px;
+  background-color:#b6b8ba;
+  border-radius: 5px;
+  height: 70px;
+}
+
+#submit_button {
+  font-size: 30px;
+  background-color: #b6b8ba;
+  height: 35px;
+  width: 60px;
+  border-radius: 5px;
+  border: 0;
+  margin: 5px;
+  float: right;
+  margin-right: 15px;
+}
+
+#admin_button {
+  background-color: #b6b8ba;
+  font-size: 20px;
+  height: 60px;
+  width: 100px;
+  border-radius: 5px;
+  border: 0;
+  float: right;
+  margin-top: 70px;
+  margin-right: 15px;
+}
+
+#num_table tr:nth-child(2) td:hover, #num_table tr:nth-child(3) td:hover, #num_table tr:nth-child(4) td:hover, #admin_button:hover, #submit_button:hover {
+  background-color: #989999;
+  font-weight: bold;
+}
