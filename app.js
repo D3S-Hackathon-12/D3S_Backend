@@ -1,6 +1,7 @@
 var express = require('express')
 var bodyParser = require('body-parser')
 var mongoose = require('mongoose')
+var session = require('express-session')
 var ejs = require('ejs')
 var fs = require('fs')
 var app = express();
@@ -9,8 +10,14 @@ var schema = mongoose.Schema;
 app.use(bodyParser.urlencoded({
   extended: true
 }))
+app.use(session({
+  secret:'@#@$MYSIGN#@$#$',
+  resave: false,
+  saveUninitialized:true
+}));
 
 app.use(express.static('public'));
+app.use(express.static('views'));
 
 mongoose.connect("mongodb://localhost/DS3_Hackathon", function(err){
   if(err){
@@ -20,8 +27,11 @@ mongoose.connect("mongodb://localhost/DS3_Hackathon", function(err){
 })
 
 var UserSchema = new schema({
-  username: {
+  username : {
     type: String
+  },
+  class : {
+    type : String
   },
   schnum : {
     type : String
@@ -29,10 +39,10 @@ var UserSchema = new schema({
   num : {
     type : String
   },
-  id: {
+  id : {
     type: String
   },
-  password: {
+  password : {
     type: String
   }
 })
@@ -55,21 +65,32 @@ app.get('/', function(req, res){
 })
 
 app.get('/login', function(req, res){
-  fs.readFile('login.html', 'utf-8', function(err, data){
+  req.session.destroy(function(){
+    req.session;
+  });
+  fs.readFile('login.ejs', 'utf-8', function(err, data){
     res.send(data)
   })
 })
 
 app.get('/secure', function(req, res){
-  fs.readFile('secure.html', 'utf-8', function(err, data){
+  req.session.destroy(function(){
+    req.session;
+  });
+  fs.readFile('secure.ejs', 'utf-8', function(err, data){
     res.send(data)
   })
 })
 
 app.get('/cctv', function(req, res){
-  fs.readFile('cctv.html', 'utf-8', function(err, data){
+  if(req.session.master==undefined){
+    res.redirect('/login')
+  }
+  else {
+  fs.readFile('cctv.ejs', 'utf-8', function(err, data){
     res.send(data)
   })
+}
 })
 
 app.get('/chase', function(req, res){
@@ -118,20 +139,21 @@ app.post('/register', function(req,res){
 })
 
 app.post('/login', function(req, res){
-  var body = req.body;
-  console.log(body)
+  console.log(req.body)
   User.findOne({
-    id: body.id
+    id: req.body.id
   }, function(err, result){
     if(err){
       console.log('/login Error!')
       throw err
     }
     if(result){
-      if(result.password == body.password){
+      if(result.password == req.body.password){
+        req.session.master = req.body.password
+        console.log(req.session.master)
         res.redirect('/cctv')
       }
-      else if(result.password != body.password){
+      else if(result.password != req.body.password){
         res.redirect('/')
       }
     }
