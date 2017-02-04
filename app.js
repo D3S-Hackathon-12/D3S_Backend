@@ -23,8 +23,11 @@ var UserSchema = new schema({
   username: {
     type: String
   },
-  email: {
-    type: String
+  schnum : {
+    type : String
+  },
+  num : {
+    type : String
   },
   id: {
     type: String
@@ -48,7 +51,7 @@ app.listen(server, function(err){
 })
 
 app.get('/', function(req, res){
-  res.redirect('/login')
+  res.redirect('/secure')
 })
 
 app.get('/login', function(req, res){
@@ -57,12 +60,16 @@ app.get('/login', function(req, res){
   })
 })
 
-app.get('/cctv', function(req, res){
-  /*fs.readFile('cctv.html', 'utf-8', function(err, data){
+app.get('/secure', function(req, res){
+  fs.readFile('secure.html', 'utf-8', function(err, data){
     res.send(data)
-  })*/
-  console.log('hello')
-  res.send('hello')
+  })
+})
+
+app.get('/cctv', function(req, res){
+  fs.readFile('cctv.html', 'utf-8', function(err, data){
+    res.send(data)
+  })
 })
 
 app.get('/chase', function(req, res){
@@ -75,10 +82,12 @@ app.post('/register', function(req,res){
   var user = new User({
     username : req.param('username'),
     id : req.param('id'),
-    password : req.param('password')
+    password : req.param('password'),
+    schnum : req.param('schnum'),
+    num : req.param('num')
   })
   User.findOne({
-    id : req.param('id')
+    schnum : req.param('schnum')
   }, function(err, result){
     if(err){
       console.log('/register Error!')
@@ -130,4 +139,9 @@ app.post('/login', function(req, res){
       res.redirect('/')
     }
   })
+})
+
+app.post('/secure', function(req, res){
+  var body = req.body
+  console.log(body)
 })

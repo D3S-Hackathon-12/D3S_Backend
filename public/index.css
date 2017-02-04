@@ -1,0 +1,35 @@
+body {
+  background: #6a7e8b;
+}
+
+#camera {
+  background-color: #8f9ca5;
+  border-radius: 2px;
+  margin-left: 50px;
+  margin-top: 60px;
+  height: 450px;
+  width: 900px;
+}
+
+#camera td {
+  background-color: #dfe4e7;
+  border-radius: 2px;
+}
+
+#student {
+  background-color: #8f9ca5;
+  border-radius: 2px;
+  height: 700px;
+  width: 400px;
+  margin-right: 50px;
+  float: right;
+}
+
+#student td {
+  background-color: #dfe4e7;
+  border-radius: 2px;
+}
+
+#student td:nth-child(1), #student td:nth-child(3) {
+  width: 15%;
+}
